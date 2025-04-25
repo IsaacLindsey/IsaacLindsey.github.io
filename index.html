@@ -3,93 +3,149 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <title>Your Name | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #111;
+      --fg: #f0f0f0;
+      --accent: #0af;
+      --trans-dur: 0.6s;
+    }
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
       scroll-behavior: smooth;
     }
-
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #1f1f1f, #2c3e50);
-      color: #fff;
-      min-height: 100vh;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.6;
     }
-
     header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(17,17,17,0.9);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 40px;
-      position: sticky;
-      top: 0;
-      background-color: rgba(31, 31, 31, 0.95);
-      z-index: 1000;
+      padding: 1rem 2rem;
+      z-index: 100;
     }
-
-    header h1 {
-      font-size: 2rem;
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 1px;
     }
-
     nav a {
-      margin-left: 30px;
-      color: #ccc;
+      color: var(--fg);
+      margin-left: 1.5rem;
       text-decoration: none;
       font-weight: 600;
-      transition: color 0.3s;
+      position: relative;
     }
-
-    nav a:hover {
-      color: #fff;
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      bottom: -4px;
+      left: 0;
+      transition: width var(--trans-dur);
     }
-
+    nav a:hover::after {
+      width: 100%;
+    }
     section {
-      padding: 80px 40px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
+      padding: 100px 2rem 60px;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    /* About */
+    #about h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+    }
+    #about p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      max-width: 700px;
     }
 
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .projects {
+    /* Projects */
+    #projects .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
     }
-
-    .project-card {
-      background-color: #2a2a2a;
-      border-radius: 15px;
-      padding: 20px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .card {
+      background: #1a1a1a;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      transform: translateY(20px);
+      opacity: 0;
+      transition: transform var(--trans-dur) ease-out, opacity var(--trans-dur) ease-out;
     }
-
-    .project-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    .card.visible {
+      transform: translateY(0);
+      opacity: 1;
     }
-
-    .project-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+      color: var(--accent);
     }
-
-    .project-card p {
+    .card p {
+      font-size: 0.95rem;
       color: #ccc;
+    }
+    .card:hover {
+      transform: translateY(-5px) scale(1.02);
+      transition: transform 0.3s ease;
+    }
+
+    /* Contact */
+    #contact form {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+    }
+    #contact label {
+      margin: 0.5rem 0 0.2rem;
+      font-weight: 600;
+    }
+    #contact input, #contact textarea {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    #contact button {
+      padding: 0.75rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #contact button:hover {
+      background: #08c;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Isaac Lindsey</h1>
+    <div class="logo">YourName</div>
     <nav>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
@@ -97,50 +153,63 @@
     </nav>
   </header>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <p>I am a future data analyst passionate about solving problems using data, automation, and impactful visualizations.</p>
+  <section id="about" class="container">
+    <h1>Hi, I'm Your Name.</h1>
+    <p>I'm a passionate developer dedicated to creating modern, efficient, and beautiful web experiences. Below are some projects I'm planning to showcase soon.</p>
   </section>
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="project-card">
-        <h3>Project Title 1</h3>
-        <p>A short description of what this project does and the tech used.</p>
+  <section id="projects" class="container">
+    <h2>Future Projects</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Project One</h3>
+        <p>Coming soon: An innovative platform that will revolutionize the way we interact online.</p>
       </div>
-      <div class="project-card">
-        <h3>Project Title 2</h3>
-        <p>Brief insight into your analysis or tool you built.</p>
+      <div class="card">
+        <h3>Project Two</h3>
+        <p>Coming soon: A mobile app designed to simplify daily tasks with AI-driven insights.</p>
       </div>
-      <div class="project-card">
-        <h3>Project Title 3</h3>
-        <p>What you learned, solved, or improved with this project.</p>
+      <div class="card">
+        <h3>Project Three</h3>
+        <p>Coming soon: A data visualization tool to help you make sense of complex datasets.</p>
+      </div>
+      <div class="card">
+        <h3>Project Four</h3>
+        <p>Coming soon: A real-time collaboration app tailored for remote teams.</p>
       </div>
     </div>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p>Want to work together? Feel free to reach out on LinkedIn or email me directly.</p>
+  <section id="contact" class="container">
+    <h2>Contact Me</h2>
+    <form>
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your Name" />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com" />
+
+      <label for="message">Message</label>
+      <textarea id="message" rows="4" placeholder="How can I help you?"></textarea>
+
+      <button type="submit">Send</button>
+    </form>
   </section>
 
   <script>
-    // Reveal sections on scroll
-    const sections = document.querySelectorAll('section');
+    document.addEventListener('DOMContentLoaded', () => {
+      const cards = document.querySelectorAll('.card');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
 
-    const revealOnScroll = () => {
-      const triggerBottom = window.innerHeight * 0.85;
-      sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop < triggerBottom) {
-          section.classList.add('visible');
-        }
-      });
-    };
-
-    window.addEventListener('scroll', revealOnScroll);
-    window.addEventListener('load', revealOnScroll);
+      cards.forEach(card => observer.observe(card));
+    });
   </script>
 </body>
 </html>
