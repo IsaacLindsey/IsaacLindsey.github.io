@@ -3,145 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name | Portfolio</title>
+  <title>Project Details | Your Name</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #111;
       --fg: #fff;
       --accent: #0af;
-      --dur: 12s;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-    html, body { height: 100%; overflow-x: hidden; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(90deg, #111, #001f3f, #111);
-      background-size: 300% 300%;
-      animation: bgShift var(--dur) ease-in-out infinite;
-      color: var(--fg);
-      line-height: 1.6;
-      position: relative;
-    }
-    @keyframes bgShift {
-      0%,100% { background-position: left center; }
-      50% { background-position: right center; }
-    }
-    /* Floating objects */
-    .float-object {
-      position: absolute;
-      width: 50px; height: 50px;
-      background: rgba(10,175,255,0.2);
-      border-radius: 50%;
-      pointer-events: none;
-      transition: transform 0.2s ease;
-    }
+    html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: 'Inter', sans-serif; }
     header {
-      position: fixed; top: 0; left: 0; width: 100%; background: rgba(17,17,17,0.85);
-      display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: rgba(17,17,17,0.85); display: flex;
+      justify-content: space-between; align-items: center;
+      padding: 1rem 2rem; z-index: 100;
     }
     .logo { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
-    nav a { color: var(--fg); margin-left: 1.5rem; text-decoration: none; font-weight: 600; position: relative; }
-    nav a::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--accent); bottom: -4px; left: 0; transition: width 0.3s; }
-    nav a:hover::after { width: 100%; }
-    section { padding: 100px 2rem 60px; min-height: 100vh; }
-    .container { max-width: 1000px; margin: 0 auto; position: relative; }
-
-    #about h1 { font-size: 2.8rem; margin-bottom: 1rem; }
-    #about p { font-size: 1.1rem; max-width: 700px; }
-
-    #projects .grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
-    .card { position: relative; width: 300px; height: 180px; background: #222; border-radius: 0.5rem;
-      overflow: hidden; cursor: pointer; transform: translateY(20px); opacity: 0; transition: transform 0.6s ease, opacity 0.6s ease;
-    }
-    .card img { width: 100%; height: 100%; object-fit: cover; }
-    .card:hover { transform: translateY(-5px) scale(1.03); }
-    .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex;
-      flex-direction: column; justify-content: flex-end; padding: 1rem; opacity: 0; transition: opacity 0.3s;
-    }
-    .card:hover .overlay { opacity: 1; }
-    .overlay h3 { color: var(--accent); margin-bottom: 0.3rem; }
-    .overlay p { color: var(--fg); font-size: 0.9rem; }
-
-    #contact { background: rgba(17,17,17,0.7); }
-    #contact h2 { color: var(--accent); margin-bottom: 1rem; }
-    #contact form { display: flex; flex-direction: column; max-width: 400px; }
-    #contact label { color: var(--fg); margin: 0.5rem 0 0.2rem; }
-    #contact input, #contact textarea { padding: 0.75rem; border: 1px solid #444; border-radius: 0.5rem; background: #222; color: var(--fg); margin-bottom: 1rem; }
-    #contact button { padding: 0.75rem; background: var(--accent); color: var(--bg); border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; }
-    #contact button:hover { opacity: 0.9; }
+    nav a { color: var(--fg); margin-left: 1.5rem; text-decoration: none; font-weight: 600; }
+    section { padding: 120px 2rem 60px; max-width: 800px; margin: 0 auto; }
+    h2 { font-size: 2.8rem; margin-bottom: 2rem; color: var(--accent); }
+    .sub { margin-bottom: 4rem; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .sub.visible { opacity: 1; transform: translateY(0); }
+    .sub h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
+    .sub p, .sub ul { font-size: 1.1rem; line-height: 1.6; }
+    .sub ul { padding-left: 1.2rem; list-style: disc; }
+    .icon { display: block; width: 50px; height: 50px; margin-bottom: 1rem; }
+    #detail-progress { position: fixed; right: 0; top: 0; width: 4px; height: 0; background: var(--accent); z-index: 200; transition: height 0.1s ease; }
   </style>
 </head>
 <body>
-  <!-- floating objects -->
-  <div class="float-object" style="top:20%; left:10%;"></div>
-  <div class="float-object" style="top:60%; left:80%; width:30px; height:30px;"></div>
-
+  <div id="detail-progress"></div>
   <header>
     <div class="logo">YourName</div>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <nav><a href="index.html">Home</a></nav>
   </header>
 
-  <section id="about" class="container">
-    <h1>Hi, I'm Your Name.</h1>
-    <p>A developer focused on clean, modern web experiences—explore my upcoming work below.</p>
-  </section>
+  <section id="project-detail">
+    <h2>Project One</h2>
 
-  <section id="projects" class="container">
-    <h2 style="color: var(--accent)">Future Projects</h2>
-    <div class="grid">
-      <div class="card" onclick="location.href='project.html?proj=one'">
-        <img src="https://via.placeholder.com/300x180" alt="Project One">
-        <div class="overlay"><h3>Project One</h3><p>Innovative platform demo.</p></div>
-      </div>
-      <div class="card" onclick="location.href='project.html?proj=two'">
-        <img src="https://via.placeholder.com/300x180" alt="Project Two">
-        <div class="overlay"><h3>Project Two</h3><p>AI-driven assistant mockup.</p></div>
-      </div>
-      <div class="card" onclick="location.href='project.html?proj=three'">
-        <img src="https://via.placeholder.com/300x180" alt="Project Three">
-        <div class="overlay"><h3>Project Three</h3><p>Data visualization teaser.</p></div>
-      </div>
-      <div class="card" onclick="location.href='project.html?proj=four'">
-        <img src="https://via.placeholder.com/300x180" alt="Project Four">
-        <div class="overlay"><h3>Project Four</h3><p>Collaboration app preview.</p></div>
-      </div>
+    <div class="sub" id="sec-project">
+      <h3>Project</h3>
+      <img src="https://via.placeholder.com/50?text=📁" alt="Project Icon" class="icon" />
+      <p>Overview of project goals, scope, and key technologies leveraged.</p>
+    </div>
+
+    <div class="sub" id="sec-tasks">
+      <h3>Tasks</h3>
+      <img src="https://via.placeholder.com/50?text=📝" alt="Tasks Icon" class="icon" />
+      <ul>
+        <li>Design wireframes</li>
+        <li>Implement API endpoints</li>
+        <li>Integrate frontend components</li>
+        <li>Write unit and integration tests</li>
+      </ul>
+    </div>
+
+    <div class="sub" id="sec-timeline">
+      <h3>Timeline</h3>
+      <img src="https://via.placeholder.com/50?text=📅" alt="Timeline Icon" class="icon" />
+      <ul>
+        <li>Prototype: Jan 2025</li>
+        <li>Alpha Release: Mar 2025</li>
+        <li>Public Launch: Jun 2025</li>
+      </ul>
+    </div>
+
+    <div class="sub" id="sec-solution">
+      <h3>Solution & Conclusion</h3>
+      <img src="https://via.placeholder.com/50?text=💡" alt="Solution Icon" class="icon" />
+      <p>Discussion of how challenges were addressed, architecture decisions, and final deliverables.</p>
+    </div>
+
+    <div class="sub" id="sec-learnings">
+      <h3>What I've Learned</h3>
+      <img src="https://via.placeholder.com/50?text=📚" alt="Learnings Icon" class="icon" />
+      <p>Key takeaways, skills honed, and areas for future improvement.</p>
     </div>
   </section>
 
-  <section id="contact" class="container">
-    <h2>Contact Me</h2>
-    <form>
-      <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Your Name">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="you@example.com">
-      <label for="message">Message</label>
-      <textarea id="message" rows="4" placeholder="How can I help you?"></textarea>
-      <button type="submit">Send</button>
-    </form>
-  </section>
-
   <script>
-    // floating object interactivity
-    document.addEventListener('mousemove', e => {
-      document.querySelectorAll('.float-object').forEach(obj => {
-        const dx = (e.clientX - window.innerWidth/2) * 0.02;
-        const dy = (e.clientY - window.innerHeight/2) * 0.02;
-        obj.style.transform = `translate(${dx}px, ${dy}px)`;
-      });
-    });
-    // reveal cards
-    document.addEventListener('DOMContentLoaded', ()=>{
-      document.querySelectorAll('.card').forEach(card=>{
-        new IntersectionObserver(([entry], obs)=>{
-          if(entry.isIntersecting){ card.style.transform='translateY(0)'; card.style.opacity='1'; obs.disconnect(); }
-        },{threshold:0.2}).observe(card);
+    // Scroll progress and reveal
+    const detailProgress = document.getElementById('detail-progress');
+    const subs = document.querySelectorAll('.sub');
+    window.addEventListener('scroll', () => {
+      const scroll = document.documentElement.scrollTop;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      detailProgress.style.height = (scroll/total * 100) + '%';
+      subs.forEach(sec => {
+        if (window.scrollY > sec.offsetTop - window.innerHeight * 0.8) {
+          sec.classList.add('visible');
+        }
       });
     });
   </script>
