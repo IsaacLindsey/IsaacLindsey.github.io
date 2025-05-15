@@ -12,24 +12,60 @@
       --accent: #0af;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-    html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: 'Inter', sans-serif; }
+    html, body {
+      height: 100%; background: var(--bg); color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      cursor: crosshair;
+    }
     header {
       position: fixed; top: 0; left: 0; width: 100%;
-      background: rgba(17,17,17,0.85); display: flex;
-      justify-content: space-between; align-items: center;
+      background: rgba(17,17,17,0.85);
+      display: flex; justify-content: space-between; align-items: center;
       padding: 1rem 2rem; z-index: 100;
     }
-    .logo { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
-    nav a { color: var(--fg); margin-left: 1.5rem; text-decoration: none; font-weight: 600; }
-    section { padding: 120px 2rem 60px; max-width: 800px; margin: 0 auto; }
-    h2 { font-size: 2.8rem; margin-bottom: 2rem; color: var(--accent); }
-    .sub { margin-bottom: 4rem; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .sub.visible { opacity: 1; transform: translateY(0); }
-    .sub h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--accent); }
-    .sub p, .sub ul { font-size: 1.1rem; line-height: 1.6; }
-    .sub ul { padding-left: 1.2rem; list-style: disc; }
-    .icon { display: block; width: 50px; height: 50px; margin-bottom: 1rem; }
-    #detail-progress { position: fixed; right: 0; top: 0; width: 4px; height: 0; background: var(--accent); z-index: 200; transition: height 0.1s ease; }
+    .logo {
+      font-size: 1.6rem; font-weight: 700; color: var(--accent);
+    }
+    nav a {
+      color: var(--fg); margin-left: 1.5rem;
+      text-decoration: none; font-weight: 600;
+    }
+    section {
+      padding: 140px 2rem 80px;
+      max-width: 900px; margin: 0 auto;
+    }
+    h2 {
+      font-size: 3rem; margin-bottom: 2.5rem; color: var(--accent);
+    }
+    .sub {
+      margin-bottom: 6rem;
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .sub.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .sub h3 {
+      font-size: 2.5rem; margin-bottom: 1rem;
+    }
+    .sub p, .sub ul {
+      font-size: 1.2rem; line-height: 1.8;
+    }
+    .sub ul {
+      padding-left: 1.5rem; list-style: disc;
+    }
+    .sub-img {
+      width: 100%; max-width: 900px; height: auto;
+      display: block; margin-bottom: 1.5rem;
+      border-radius: 0.75rem; object-fit: cover;
+    }
+    /* Scroll progress */
+    #detail-progress {
+      position: fixed; right: 0; top: 0;
+      width: 4px; height: 0;
+      background: var(--accent); z-index: 200;
+      transition: height 0.1s ease;
+    }
   </style>
 </head>
 <body>
@@ -43,53 +79,54 @@
     <h2>Project One</h2>
 
     <div class="sub" id="sec-project">
-      <h3>Project</h3>
-      <img src="https://via.placeholder.com/50?text=📁" alt="Project Icon" class="icon" />
-      <p>Overview of project goals, scope, and key technologies leveraged.</p>
+      <img src="https://via.placeholder.com/900x400?text=Project+Overview" alt="Project Overview" class="sub-img" />
+      <h3>Project Overview</h3>
+      <p>Comprehensive look at goals, scope, and technologies utilized for Project One. This covers the primary objectives and architectural decisions made during development.</p>
     </div>
 
     <div class="sub" id="sec-tasks">
+      <img src="https://via.placeholder.com/900x400?text=Tasks+Checklist" alt="Tasks Checklist" class="sub-img" />
       <h3>Tasks</h3>
-      <img src="https://via.placeholder.com/50?text=📝" alt="Tasks Icon" class="icon" />
       <ul>
-        <li>Design wireframes</li>
-        <li>Implement API endpoints</li>
-        <li>Integrate frontend components</li>
-        <li>Write unit and integration tests</li>
+        <li>Design UX/UI wireframes</li>
+        <li>Set up backend API endpoints</li>
+        <li>Integrate React frontend components</li>
+        <li>Write unit and end-to-end tests</li>
       </ul>
     </div>
 
     <div class="sub" id="sec-timeline">
+      <img src="https://via.placeholder.com/900x400?text=Project+Timeline" alt="Project Timeline" class="sub-img" />
       <h3>Timeline</h3>
-      <img src="https://via.placeholder.com/50?text=📅" alt="Timeline Icon" class="icon" />
       <ul>
-        <li>Prototype: Jan 2025</li>
-        <li>Alpha Release: Mar 2025</li>
-        <li>Public Launch: Jun 2025</li>
+        <li>Prototype phase: Jan 2025</li>
+        <li>Alpha release: Mar 2025</li>
+        <li>Beta testing: May 2025</li>
+        <li>Public launch: Jul 2025</li>
       </ul>
     </div>
 
     <div class="sub" id="sec-solution">
+      <img src="https://via.placeholder.com/900x400?text=Solution+Diagram" alt="Solution Diagram" class="sub-img" />
       <h3>Solution & Conclusion</h3>
-      <img src="https://via.placeholder.com/50?text=💡" alt="Solution Icon" class="icon" />
-      <p>Discussion of how challenges were addressed, architecture decisions, and final deliverables.</p>
+      <p>In-depth explanation of how challenges were overcome, including architectural patterns, performance optimizations, and the final deliverable state that met project goals.</p>
     </div>
 
     <div class="sub" id="sec-learnings">
+      <img src="https://via.placeholder.com/900x400?text=Key+Learnings" alt="Key Learnings" class="sub-img" />
       <h3>What I've Learned</h3>
-      <img src="https://via.placeholder.com/50?text=📚" alt="Learnings Icon" class="icon" />
-      <p>Key takeaways, skills honed, and areas for future improvement.</p>
+      <p>Reflection on skills gained, lessons learned around best practices, and considerations for future enhancements or new project iterations.</p>
     </div>
   </section>
 
   <script>
-    // Scroll progress and reveal
+    // Scroll progress & reveal logic
     const detailProgress = document.getElementById('detail-progress');
     const subs = document.querySelectorAll('.sub');
     window.addEventListener('scroll', () => {
       const scroll = document.documentElement.scrollTop;
       const total = document.documentElement.scrollHeight - window.innerHeight;
-      detailProgress.style.height = (scroll/total * 100) + '%';
+      detailProgress.style.height = (scroll / total * 100) + '%';
       subs.forEach(sec => {
         if (window.scrollY > sec.offsetTop - window.innerHeight * 0.8) {
           sec.classList.add('visible');
