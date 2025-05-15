@@ -60,6 +60,14 @@
     .overlay h3 { color: var(--accent); margin-bottom: 0.3rem; }
     .overlay p { color: var(--fg); font-size: 0.9rem; }
 
+    /* Disabled (future) card */
+    .card.disabled {
+      cursor: default;
+      opacity: 0.6;
+      pointer-events: none;
+      transform: translateY(0);
+    }
+
     /* Contact */
     #contact { background: rgba(17,17,17,0.7); }
     #contact h2 { color: var(--accent); margin-bottom: 1rem; }
@@ -86,23 +94,22 @@
   </section>
 
   <section id="projects" class="container">
-    <h2 style="color: var(--accent)">Future Projects</h2>
+    <h2 style="color: var(--accent)">Projects</h2>
     <div class="grid">
+      <!-- Project One -->
       <div class="card" onclick="location.href='project.html?proj=one'">
         <img src="https://via.placeholder.com/300x180" alt="Project One">
         <div class="overlay"><h3>Project One</h3><p>Innovative platform demo.</p></div>
       </div>
+      <!-- Project Two -->
       <div class="card" onclick="location.href='project.html?proj=two'">
         <img src="https://via.placeholder.com/300x180" alt="Project Two">
         <div class="overlay"><h3>Project Two</h3><p>AI-driven assistant mockup.</p></div>
       </div>
-      <div class="card" onclick="location.href='project.html?proj=three'">
-        <img src="https://via.placeholder.com/300x180" alt="Project Three">
-        <div class="overlay"><h3>Project Three</h3><p>Data visualization teaser.</p></div>
-      </div>
-      <div class="card" onclick="location.href='project.html?proj=four'">
-        <img src="https://via.placeholder.com/300x180" alt="Project Four">
-        <div class="overlay"><h3>Project Four</h3><p>Collaboration app preview.</p></div>
+      <!-- Future Project -->
+      <div class="card disabled">
+        <img src="https://via.placeholder.com/300x180?text=Coming+Soon" alt="Future Project">
+        <div class="overlay"><h3>Future Project</h3><p>Stay tuned for updates.</p></div>
       </div>
     </div>
   </section>
