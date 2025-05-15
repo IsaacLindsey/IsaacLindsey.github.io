@@ -37,15 +37,12 @@
     <div class="logo">YourName</div>
     <nav><a href="index.html">Home</a></nav>
   </header>
-
   <section id="project-detail">
     <h2>Project One</h2>
-
     <div class="sub" id="sec-project">
       <img src="assets/pexels-jakubzerdzicki-28550000.jpg" alt="Project Overview" class="sub-img" />
       <h3 class="animate-color">Project Overview</h3>
       <p>Comprehensive look at goals, scope, and technologies utilized for Project One. This covers the primary objectives and architectural decisions made during development.</p>
-
       <h4>Tasks</h4>
       <img src="assets/pexels-jakubzerdzicki-27745609.jpg" alt="Tasks Checklist" class="sub-img" />
       <ul>
@@ -54,7 +51,6 @@
         <li>Integrate React frontend components</li>
         <li>Write unit and end-to-end tests</li>
       </ul>
-
       <h4>Timeline</h4>
       <ul>
         <li>Prototype phase: Jan 2025</li>
@@ -63,59 +59,44 @@
         <li>Public launch: Jul 2025</li>
       </ul>
     </div>
-
     <div class="sub" id="sec-solution">
       <img src="assets/pexels-kevin-ku-92347-577585.jpg" alt="Solution Diagram" class="sub-img" />
       <h3>Solution & Conclusion</h3>
       <p>In-depth explanation of how challenges were overcome, including architectural patterns, performance optimizations, and the final deliverable state that met project goals.</p>
     </div>
-
     <div class="sub" id="sec-learnings">
       <h3>What I've Learned</h3>
       <p>Reflection on skills gained, lessons learned around best practices, and considerations for future enhancements or new project iterations.</p>
     </div>
-
-    <!-- New Reflection Section -->
     <div class="sub" id="sec-reflection">
       <h3>What I've Learned Throughout This Project</h3>
       <p>Here, I reflect on the challenges faced, the key insights gained, and the skills I developed while building this project. Feel free to expand on specific technical or process-oriented lessons.</p>
     </div>
   </section>
-
   <script>
-    // Scroll progress & reveal
+    // Progress bar update
     const detailProgress = document.getElementById('detail-progress');
-    const subs = document.querySelectorAll('.sub');
     window.addEventListener('scroll', () => {
       const scroll = document.documentElement.scrollTop;
       const total = document.documentElement.scrollHeight - window.innerHeight;
       detailProgress.style.height = (scroll / total * 100) + '%';
-      subs.forEach(sec => {
-        if (window.scrollY > sec.offsetTop - window.innerHeight * 0.8) {
-          sec.classList.add('visible');
+    });
+    // Reveal sections on intersection
+    const subs = document.querySelectorAll('.sub');
+    const revealObs = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
         }
       });
-    });
-
+    }, { threshold: 0.2 });
+    subs.forEach(sec => revealObs.observe(sec));
+    
     document.addEventListener('DOMContentLoaded', () => {
       // Initialize Lottie animations
-      lottie.loadAnimation({
-        container: document.getElementById('detail-animation'),
-        path: 'assets/detail-animation.json',
-        renderer: 'svg',
-        loop: true,
-        autoplay: true
-      });
-      lottie.loadAnimation({
-        container: document.getElementById('reflection-animation'),
-        path: 'assets/learning-animation_1.json',
-        renderer: 'svg',
-        loop: true,
-        autoplay: true
-      });
-
-      // Trigger a scroll event on load to reveal any in-view sections
-      window.dispatchEvent(new Event('scroll'));
+      lottie.loadAnimation({ container: document.getElementById('detail-animation'), path: 'assets/details-animation_1.json', renderer: 'svg', loop: true, autoplay: true });
+      lottie.loadAnimation({ container: document.getElementById('reflection-animation'), path: 'assets/learning-animation_1.json', renderer: 'svg', loop: true, autoplay: true });
     });
   </script>
 </body>
