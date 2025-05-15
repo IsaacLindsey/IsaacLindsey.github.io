@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Project Details | Your Name</title>
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Lottie for subtle project background animation -->
+  <!-- Lottie Web for subtle background animation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js"></script>
   <style>
     :root {
@@ -13,31 +14,122 @@
       --fg: #fff;
       --accent: #0af;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
-    html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: 'Inter', sans-serif; cursor: crosshair; overflow-x: hidden; }
-    /* Subtle Lottie background for project page */
-    #detail-animation {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.15; pointer-events: none;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
     }
-    header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(17,17,17,0.85); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 100; }
-    .logo { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
-    nav a { color: var(--fg); margin-left: 1.5rem; text-decoration: none; font-weight: 600; }
-    section { padding: 140px 2rem 80px; max-width: 900px; margin: 0 auto; position: relative; }
-    h2 { font-size: 3rem; margin-bottom: 2.5rem; color: var(--accent); }
-    .sub { margin-bottom: 6rem; opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
-    .sub.visible { opacity: 1; transform: translateY(0); }
-    .sub h3 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .animate-color { animation: colorShift 4s linear infinite; }
-    @keyframes colorShift { 0%,100% { color: var(--accent); } 50% { color: var(--fg); } }
-    .sub p, .sub ul { font-size: 1.2rem; line-height: 1.8; }
-    .sub ul { padding-left: 1.5rem; list-style: disc; }
-    .sub-img { width: 100%; height: auto; display: block; margin-bottom: 1.5rem; border-radius: 0.75rem; object-fit: cover; }
-    #detail-progress { position: fixed; right: 0; top: 0; width: 4px; height: 0; background: var(--accent); z-index: 200; transition: height 0.1s ease; }
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Inter', sans-serif;
+      cursor: crosshair;
+      overflow-x: hidden;
+    }
+    /* Lottie background container */
+    #detail-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(17,17,17,0.85);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    nav a {
+      color: var(--fg);
+      margin-left: 1.5rem;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    section {
+      padding: 140px 2rem 80px;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+    }
+    h2 {
+      font-size: 3rem;
+      margin-bottom: 2.5rem;
+      color: var(--accent);
+    }
+    .sub {
+      margin-bottom: 6rem;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .sub.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .sub h3 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .animate-color {
+      animation: colorShift 4s linear infinite;
+    }
+    @keyframes colorShift {
+      0%,100% { color: var(--accent); }
+      50%   { color: var(--fg); }
+    }
+    .sub p,
+    .sub ul {
+      font-size: 1.2rem;
+      line-height: 1.8;
+    }
+    .sub ul {
+      padding-left: 1.5rem;
+      list-style: disc;
+    }
+    .sub-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: 1.5rem;
+      border-radius: 0.75rem;
+      object-fit: cover;
+    }
+    /* Scroll progress bar */
+    #detail-progress {
+      position: fixed;
+      right: 0;
+      top: 0;
+      width: 4px;
+      height: 0;
+      background: var(--accent);
+      z-index: 200;
+      transition: height 0.1s ease;
+    }
   </style>
 </head>
 <body>
+  <!-- Subtle animated background -->
   <div id="detail-animation"></div>
+  <!-- Scroll progress indicator -->
   <div id="detail-progress"></div>
+
   <header>
     <div class="logo">YourName</div>
     <nav><a href="index.html">Home</a></nav>
@@ -46,6 +138,7 @@
   <section id="project-detail">
     <h2>Project One</h2>
 
+    <!-- Combined Overview, Tasks, Timeline -->
     <div class="sub" id="sec-project">
       <img src="assets/pexels-jakubzerdzicki-28550000.jpg" alt="Project Overview" class="sub-img" />
       <h3 class="animate-color">Project Overview</h3>
@@ -69,20 +162,21 @@
       </ul>
     </div>
 
+    <!-- Solution & Conclusion -->
     <div class="sub" id="sec-solution">
       <img src="assets/pexels-kevin-ku-92347-577585.jpg" alt="Solution Diagram" class="sub-img" />
       <h3>Solution &amp; Conclusion</h3>
       <p>In-depth explanation of how challenges were overcome, including architectural patterns, performance optimizations, and the final deliverable state that met project goals.</p>
     </div>
 
+    <!-- Learnings -->
     <div class="sub" id="sec-learnings">
       <h3>What I&#39;ve Learned</h3>
       <p>Reflection on skills gained, lessons learned around best practices, and considerations for future enhancements or new project iterations.</p>
-    </div>
-  </section>
-
+    </section>
+  
   <script>
-    // Initialize subtle Lottie for project page
+    // Load subtle Lottie animation
     lottie.loadAnimation({
       container: document.getElementById('detail-animation'),
       path: 'assets/detail-animation.json',
@@ -91,15 +185,17 @@
       autoplay: true
     });
 
-    // Scroll progress & reveal logic
+    // Scroll reveal and progress bar
     const detailProgress = document.getElementById('detail-progress');
     const subs = document.querySelectorAll('.sub');
     window.addEventListener('scroll', () => {
       const scroll = document.documentElement.scrollTop;
       const total = document.documentElement.scrollHeight - window.innerHeight;
-      detailProgress.style.height = (scroll / total * 100) + '%';
+      detailProgress.style.height = (scroll/total*100) + '%';
       subs.forEach(sec => {
-        if (window.scrollY > sec.offsetTop - window.innerHeight * 0.8) sec.classList.add('visible');
+        if (window.scrollY > sec.offsetTop - window.innerHeight*0.8) {
+          sec.classList.add('visible');
+        }
       });
     });
   </script>
