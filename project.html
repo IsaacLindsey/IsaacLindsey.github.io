@@ -6,7 +6,7 @@
   <title>Project Details | Your Name</title>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <!-- Lottie Web for subtle background animation -->
+  <!-- Lottie for subtle background animation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js"></script>
   <style>
     :root {
@@ -14,11 +14,10 @@
       --fg: #fff;
       --accent: #0af;
     }
-    * {
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      scroll-behavior: smooth;
     }
     html, body {
       height: 100%;
@@ -27,8 +26,8 @@
       font-family: 'Inter', sans-serif;
       cursor: crosshair;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
-    /* Lottie background container */
     #detail-animation {
       position: fixed;
       top: 0;
@@ -58,11 +57,11 @@
     }
     nav a {
       color: var(--fg);
-      margin-left: 1.5rem;
+      margin-left: 1rem;
       text-decoration: none;
       font-weight: 600;
     }
-    section {
+    section#project-detail {
       padding: 140px 2rem 80px;
       max-width: 900px;
       margin: 0 auto;
@@ -92,12 +91,13 @@
     }
     @keyframes colorShift {
       0%,100% { color: var(--accent); }
-      50%   { color: var(--fg); }
+      50% { color: var(--fg); }
     }
     .sub p,
     .sub ul {
       font-size: 1.2rem;
       line-height: 1.8;
+      margin-bottom: 1rem;
     }
     .sub ul {
       padding-left: 1.5rem;
@@ -111,7 +111,6 @@
       border-radius: 0.75rem;
       object-fit: cover;
     }
-    /* Scroll progress bar */
     #detail-progress {
       position: fixed;
       right: 0;
@@ -138,7 +137,7 @@
   <section id="project-detail">
     <h2>Project One</h2>
 
-    <!-- Combined Overview, Tasks, Timeline -->
+    <!-- Project Overview with embedded Tasks & Timeline -->
     <div class="sub" id="sec-project">
       <img src="assets/pexels-jakubzerdzicki-28550000.jpg" alt="Project Overview" class="sub-img" />
       <h3 class="animate-color">Project Overview</h3>
@@ -173,10 +172,11 @@
     <div class="sub" id="sec-learnings">
       <h3>What I&#39;ve Learned</h3>
       <p>Reflection on skills gained, lessons learned around best practices, and considerations for future enhancements or new project iterations.</p>
-    </section>
-  
+    </div>
+  </section>
+
   <script>
-    // Load subtle Lottie animation
+    // Initialize subtle Lottie animation
     lottie.loadAnimation({
       container: document.getElementById('detail-animation'),
       path: 'assets/detail-animation.json',
@@ -191,9 +191,9 @@
     window.addEventListener('scroll', () => {
       const scroll = document.documentElement.scrollTop;
       const total = document.documentElement.scrollHeight - window.innerHeight;
-      detailProgress.style.height = (scroll/total*100) + '%';
+      detailProgress.style.height = (scroll / total * 100) + '%';
       subs.forEach(sec => {
-        if (window.scrollY > sec.offsetTop - window.innerHeight*0.8) {
+        if (window.scrollY > sec.offsetTop - window.innerHeight * 0.8) {
           sec.classList.add('visible');
         }
       });
