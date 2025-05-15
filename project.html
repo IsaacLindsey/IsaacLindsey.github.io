@@ -1,3 +1,147 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111;
+      --fg: #fff;
+      --accent: #0af;
+      --dur: 5s;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(90deg, #111, #001f3f, #111);
+      background-size: 200% 200%;
+      animation: bgShift var(--dur) ease-in-out infinite;
+      color: var(--fg);
+      line-height: 1.6;
+    }
+    @keyframes bgShift {
+      0%,100% { background-position: left center; }
+      50% { background-position: right center; }
+    }
+    header {
+      position: fixed; top: 0; left: 0; width: 100%; background: rgba(17,17,17,0.85);
+      display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;
+      z-index: 100;
+    }
+    .logo { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+    nav a { color: var(--fg); margin-left: 1.5rem; text-decoration: none; font-weight: 600; position: relative; }
+    nav a::after { content: ''; position: absolute; width: 0; height: 2px; background: var(--accent); bottom: -4px; left: 0; transition: width 0.3s; }
+    nav a:hover::after { width: 100%; }
+    section { padding: 100px 2rem 60px; min-height: 100vh; }
+    .container { max-width: 1000px; margin: 0 auto; }
+
+    /* About */
+    #about h1 { font-size: 2.8rem; margin-bottom: 1rem; }
+    #about p { font-size: 1.1rem; max-width: 700px; }
+
+    /* Projects Sneak-Peek */
+    #projects .grid { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
+    .card {
+      position: relative; width: 300px; height: 180px; background: #222; border-radius: 0.5rem;
+      overflow: hidden; cursor: pointer; transform: translateY(20px); opacity: 0;
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+    .card img { width: 100%; height: 100%; object-fit: cover; }
+    .card:hover { transform: translateY(-5px) scale(1.03); }
+    .card .overlay {
+      position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex;
+      flex-direction: column; justify-content: flex-end; padding: 1rem;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .card:hover .overlay { opacity: 1; }
+    .overlay h3 { color: var(--accent); margin-bottom: 0.3rem; }
+    .overlay p { color: var(--fg); font-size: 0.9rem; }
+
+    /* Disabled (future) card */
+    .card.disabled {
+      cursor: default;
+      opacity: 0.6;
+      pointer-events: none;
+      transform: translateY(0);
+    }
+
+    /* Contact */
+    #contact { background: rgba(17,17,17,0.7); }
+    #contact h2 { color: var(--accent); margin-bottom: 1rem; }
+    #contact form { display: flex; flex-direction: column; max-width: 400px; }
+    #contact label { color: var(--fg); margin: 0.5rem 0 0.2rem; }
+    #contact input, #contact textarea { padding: 0.75rem; border: 1px solid #444; border-radius: 0.5rem; background: #222; color: var(--fg); margin-bottom: 1rem; }
+    #contact button { padding: 0.75rem; background: var(--accent); color: var(--bg); border: none; border-radius: 0.5rem; font-weight: 600; cursor: pointer; }
+    #contact button:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">YourName</div>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="about" class="container">
+    <h1>Hi, I'm Your Name.</h1>
+    <p>A developer focused on clean, modern web experiences—explore my upcoming work below.</p>
+  </section>
+
+  <section id="projects" class="container">
+    <h2 style="color: var(--accent)">Projects</h2>
+    <div class="grid">
+      <!-- Project One -->
+      <div class="card" onclick="location.href='project.html?proj=one'">
+        <img src="https://via.placeholder.com/300x180" alt="Project One">
+        <div class="overlay"><h3>Project One</h3><p>Innovative platform demo.</p></div>
+      </div>
+      <!-- Project Two -->
+      <div class="card" onclick="location.href='project.html?proj=two'">
+        <img src="https://via.placeholder.com/300x180" alt="Project Two">
+        <div class="overlay"><h3>Project Two</h3><p>AI-driven assistant mockup.</p></div>
+      </div>
+      <!-- Future Project -->
+      <div class="card disabled">
+        <img src="https://via.placeholder.com/300x180?text=Coming+Soon" alt="Future Project">
+        <div class="overlay"><h3>Future Project</h3><p>Stay tuned for updates.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="container">
+    <h2>Contact Me</h2>
+    <form>
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Your Name">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="you@example.com">
+      <label for="message">Message</label>
+      <textarea id="message" rows="4" placeholder="How can I help you?"></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card=>{
+        new IntersectionObserver(entries=>{
+          if(entries[0].isIntersecting){ card.style.transform='translateY(0)'; card.style.opacity='1'; entries[0].target.disconnect(); }
+        },{threshold:0.2}).observe(card);
+      });
+    });
+  </script>
+</body>
+</html>
+
+<!-- project.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +154,8 @@
     :root { --bg: #111; --fg: #fff; --accent: #0af; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
-    #detail-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.15; pointer-events: none; }
+    #detail-animation, #reflection-animation { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.15; pointer-events: none; }
+    #reflection-animation { top: auto; bottom: 0; height: 150px; opacity: 0.1; }
     header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(17,17,17,0.85); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 100; }
     .logo { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
     nav a { color: var(--fg); margin-left: 1rem; text-decoration: none; font-weight: 600; }
@@ -30,6 +175,7 @@
 <body>
   <div id="detail-animation"></div>
   <div id="detail-progress"></div>
+  <div id="reflection-animation"></div>
 
   <header>
     <div class="logo">YourName</div>
@@ -64,13 +210,19 @@
 
     <div class="sub" id="sec-solution">
       <img src="assets/pexels-kevin-ku-92347-577585.jpg" alt="Solution Diagram" class="sub-img" />
-      <h3>Solution &amp; Conclusion</h3>
+      <h3>Solution & Conclusion</h3>
       <p>In-depth explanation of how challenges were overcome, including architectural patterns, performance optimizations, and the final deliverable state that met project goals.</p>
     </div>
 
     <div class="sub" id="sec-learnings">
       <h3>What I've Learned</h3>
       <p>Reflection on skills gained, lessons learned around best practices, and considerations for future enhancements or new project iterations.</p>
+    </div>
+
+    <!-- New Reflection Section -->
+    <div class="sub" id="sec-reflection">
+      <h3>What I've Learned Throughout This Project</h3>
+      <p>Here, I reflect on the challenges faced, the key insights gained, and the skills I developed while building this project. Feel free to expand on specific technical or process-oriented lessons.</p>
     </div>
   </section>
 
@@ -90,10 +242,17 @@
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      // Initialize Lottie animation
+      // Initialize Lottie animations
       lottie.loadAnimation({
         container: document.getElementById('detail-animation'),
         path: 'assets/detail-animation.json',
+        renderer: 'svg',
+        loop: true,
+        autoplay: true
+      });
+      lottie.loadAnimation({
+        container: document.getElementById('reflection-animation'),
+        path: 'assets/learning-animation_1.json',
         renderer: 'svg',
         loop: true,
         autoplay: true
