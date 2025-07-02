@@ -33,7 +33,7 @@
           transparent 1px,
           transparent 20px
         );
-      background-size: 200% 200%, 20px 20px, 20px 20px;
+      background-size: 200% 200%, 20px 20px;
       animation: bgShift var(--dur) ease-in-out infinite, textureShift var(--dur) linear infinite;
       color: var(--fg);
       line-height: 1.6;
@@ -56,25 +56,17 @@
     .container { max-width: 1000px; margin: 0 auto; }
 
     /* ABOUT */
-    #about .container { display: flex; align-items: center; gap: 2rem; }
-    #about img { width: 300px; height: auto; border-radius: 0.5rem; }
+    #about { display: flex; align-items: flex-start; gap: 2rem; }
+    #about img { width: 300px; height: auto; border-radius: 0.5rem; flex-shrink: 0; }
     #about .intro { flex: 1; }
     #about h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-    #about p { font-size: 1.2rem; }
+    #about p { font-size: 1.2rem; margin-bottom: 1.5rem; }
 
     /* CERTIFICATES */
-    #certificates { margin-top: 2rem; }
+    #certificates { margin-bottom: 2rem; }
     #certificates h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--accent); }
-    #certificates .cert-list { display: flex; flex-wrap: wrap; gap: 1.5rem; }
-    .certificate {
-      background: var(--bg-light);
-      border-radius: 0.5rem;
-      padding: 1rem;
-      flex: 1 1 calc(33% - 1.5rem);
-      min-width: 200px;
-    }
-    .certificate h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-    .certificate p { font-size: 1rem; }
+    #certificates .cert-list { list-style: disc inside; font-size: 1rem; line-height: 1.6; }
+    #certificates .cert-list li { margin-bottom: 0.75rem; }
 
     /* PROJECTS */
     #projects h2 { font-size: 2.8rem; margin-bottom: 1.5rem; }
@@ -91,11 +83,12 @@
       opacity: 0;
       transition: transform 0.6s ease, opacity 0.6s ease;
     }
-    .card img { width: 100%; height: 100%; object-fit: cover; }
+    .card img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.3s ease; }
+    .card:hover img { filter: brightness(50%); }
     .card:hover { transform: translateY(-5px) scale(1.03); }
     .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; flex-direction: column; justify-content: flex-end; padding: 1rem; opacity: 0; transition: opacity 0.3s; }
     .card:hover .overlay { opacity: 1; }
-    .overlay h3 { color: var(--accent); margin-bottom: 0.3rem; font-size: 1.1rem; }
+    .overlay h3 { color: var(--accent); margin-bottom: 0.3rem; font-size: 1.4rem; text-shadow: 2px 2px 4px #000; }
     .overlay p { color: var(--fg); font-size: 1rem; }
 
     /* CONTACT */
@@ -118,35 +111,18 @@
   </header>
 
   <section id="about" class="container">
-    <img src="assets/linkedIn_pfp1.png" alt="Isaac Lindsey portrait" />
+    <img src="assets/intro_placeholder.jpg" alt="Isaac Lindsey portrait" />
     <div class="intro">
       <h1>Welcome to My Portfolio</h1>
       <p>I'm a self-taught Data Analyst, trained on Postgres databases and Excel for creating professional, insightful visualizations. I enjoy crafting dashboards that transform raw numbers into compelling stories.</p>
       <!-- Certificates Section -->
       <section id="certificates">
         <h2>Certificates</h2>
-        <div class="cert-list">
-          <div class="certificate">
-            <h3>Complete SQL + Databases Bootcamp</h3>
-            <p>Issued by Zero To Mastery</p>
-          </div>
-          <div class="certificate">
-            <h3>Advanced Excel Bootcamp: Data Analytics and Business Intelligence</h3>
-            <p>Issued by Zero To Mastery</p>
-          </div>
-          <div class="certificate">
-            <h3>The Excel Bootcamp</h3>
-            <p>Issued by Zero To Mastery</p>
-          </div>
-          <div class="certificate">
-            <h3>Prompt Engineering Bootcamp (Working with LLMs)</h3>
-            <p>Issued by Zero To Mastery</p>
-          </div>
-          <div class="certificate">
-            <h3>Complete Python Developer in 2024</h3>
-            <p>Issued by Zero To Mastery</p>
-          </div>
-        </div>
+        <ul class="cert-list">
+          <li>Data Analyst Professional Certificate (Google)</li>
+          <li>SQL for Data Science (Coursera)</li>
+          <li>Excel Skills for Business (Macquarie University)</li>
+        </ul>
       </section>
     </div>
   </section>
@@ -155,14 +131,14 @@
     <h2>Projects</h2>
     <div class="grid">
       <div class="card" onclick="location.href='project.html?proj=one'">
-        <img src="assets/PostgreSQL-Emblem.jpg" alt="Tennessee Housing Data" />
+        <img src="assets/project_1_pic.jpg" alt="Tennessee Housing Data" />
         <div class="overlay">
           <h3>Tennessee Housing Data Cleaning / SQL</h3>
           <p>From messy data to highly usable and actionable insights.</p>
         </div>
       </div>
       <div class="card" onclick="location.href='project.html?proj=two'">
-        <img src="assets/budget_thumb.jpg" alt="Budget Visualizer" />
+        <img src="https://via.placeholder.com/350x220" alt="Budget Visualizer" />
         <div class="overlay">
           <h3>Budget Goal-Maker & Visualizer / Excel</h3>
           <p>Automated graphs, pivot charts, and data-extract macros.</p>
