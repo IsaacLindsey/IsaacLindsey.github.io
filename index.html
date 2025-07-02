@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name | Portfolio</title>
+  <title>Isaac Lindsey | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root { --bg: #111; --fg: #fff; --accent: #0af; --dur: 5s; }
@@ -44,7 +44,7 @@
 </head>
 <body>
   <header>
-    <div class="logo">YourName</div>
+    <div class="logo">Isaac Lindsey</div>
     <nav>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
@@ -52,23 +52,24 @@
     </nav>
   </header>
   <section id="about" class="container">
-    <h1>Hi, I'm Your Name.</h1>
-    <p>A developer focused on clean, modern web experiences—explore my upcoming work below.</p>
+    <h1>Welcome to My Portfolio</h1>
+    <p>Im a self taught Data Analyst, trained on Postgres databases, and Excel for making data look professional and visualized to give meaningful insights.
+    I enjoy making dashboards for the cleaned data the most, being able to make the most out of the data and tell stories with something that was once just numbers and letters.</p>
   </section>
   <section id="projects" class="container">
     <h2 style="color: var(--accent)">Projects</h2>
     <div class="grid">
       <div class="card" onclick="location.href='project.html?proj=one'">
         <img src="assets/project_1_pic.jpg" alt="Project One">
-        <div class="overlay"><h3>Project One</h3><p>Innovative platform demo.</p></div>
+        <div class="overlay"><h3>Tennessee Housing Data Cleaning / SQL</h3><p>From messy data to highly usable and actionable data.</p></div>
       </div>
       <div class="card" onclick="location.href='project.html?proj=two'">
         <img src="https://via.placeholder.com/300x180" alt="Project Two">
-        <div class="overlay"><h3>Project Two</h3><p>AI-driven assistant mockup.</p></div>
+        <div class="overlay"><h3>Budget Goal-Maker & Visualizer / Excel</h3><p>Budget visualizer with automated graphs and pivot charts, plus a data-extract macro.</p></div>
       </div>
-      <div class="card disabled">
-        <img src="https://via.placeholder.com/300x180?text=Coming+Soon" alt="Future Project">
-        <div class="overlay"><h3>Future Project</h3><p>Stay tuned for updates.</p></div>
+      <div class="card" onclick="location.href='project.html?proj=three'">
+        <img src="https://via.placeholder.com/300x180" alt="Project Three">
+        <div class="overlay"><h3>Something idk yet</h3><p>somethin cool lol.</p></div>
       </div>
     </div>
   </section>
@@ -76,7 +77,7 @@
     <h2>Contact Me</h2>
     <form>
       <label for="name">Name</label>
-      <input type="text" id="name" placeholder="Your Name">
+      <input type="text" id="name" placeholder="Name">
       <label for="email">Email</label>
       <input type="email" id="email" placeholder="you@example.com">
       <label for="message">Message</label>
