@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Details | Your Name</title>
+  <title>Isaac Lindsey</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root { --bg: #111; --fg: #fff; --accent: #0af; }
@@ -97,36 +97,56 @@
 </head>
 <body>
   <header>
-    <div class="logo">YourName</div>
+    <div class="logo">Isaac Lindsey</div>
     <nav><a href="index.html">Home</a></nav>
   </header>
 
   <div id="detail-progress"></div>
 
   <section id="project-detail">
-    <h2>Project One</h2>
+    <h2>Tennessee Housing Data Cleaning / SQL Project</h2>
 
     <!-- Overview -->
     <div class="sub" id="sec-project">
       <img src="assets/pexels-jakubzerdzicki-28550000.jpg" alt="Project Overview" class="sub-img" />
       <h3 class="animate-color">Project Overview</h3>
-      <p>Comprehensive look at goals, scope, and technologies utilized for Project One. This covers the primary objectives and architectural decisions made during development.</p>
+      <p>This project is importing raw data into Postgres, where we clean the data to make it more usable.</p>
 
-      <img src="assets/pexels-jakubzerdzicki-27745609.jpg" alt="Tasks Checklist" class="sub-img" />
-      <h3 class="animate-color">Tasks</h3>
+      <div class="separator"></div>
+      <h3 class="animate-color">Step 1: Importing</h3>
       <ul>
-        <li>Design UX/UI wireframes</li>
-        <li>Set up backend API endpoints</li>
-        <li>Integrate React frontend components</li>
-        <li>Write unit and end-to-end tests</li>
+        <img src="assets/ss1.jpg" alt="Project Overview" class="sub-img" />
+        <p>First thing I do is save the raw data file (.xlsx) as a .csv file so Postgres can read it easier for importing.</p>
+        <p>Next I go into the terminal (Powershell on Windows), and create a directory so that everything is organized, and if I want to use ETL scripts, it will make it much easier to point to the location of the raw data.</p>
+        <img src="assets/ss2.jpg" alt="Project Overview" class="sub-img" />
+        <p>Went into Sublime text to type out my import sql script so that I can use this file to have psql read and run the script later on. In this file, I will create the database if it doesn't exist already, create the schema, create the table, and lastly copy the table from the csv file location.</p>
+        <img src="assets/ss3.jpg" alt="Project Overview" class="sub-img" />
+        <p>In the "create table", you'll notice I set all of the column types to be just "text". This is to ensure faster query execution, quicker importing. Only downside is you must cast columns to be different types in your queries.</p>
       </ul>
 
-      <h3 class="animate-color">Timeline</h3>
+      <h3 class="animate-color">Step 2: Cleaning</h3>
       <ul>
-        <li>Prototype phase: Jan 2025</li>
-        <li>Alpha release: Mar 2025</li>
-        <li>Beta testing: May 2025</li>
-        <li>Public launch: Jul 2025</li>
+        <img src="assets/ss4.jpg" alt="Project Overview" class="sub-img" />
+        <p>First column I made changes on was the sale_date column. Changed the date format to the standard YYYY-MM-DD format. To do this, I changed the column type to "date", and used the "to_date" function to change the format to be standard using the existing date format, which was like this (April 9, 2013), so I used AI to figure out what the date format syntax was for the query to work properly.</p>
+        <img src="assets/ss5.jpg" alt="Project Overview" class="sub-img" />
+        <p>Before splitting any data, we must take care of the null values. For the null values in the property_address column, it wasn't a straight forward task due to the ParcelID of the null property_address values being the same as some non-null values. In this case, the target goal was to use the non-null values that shared the same ParcelID to replace the null values.</p>
+        <p>To do this accurately, I made sure to be specific on how I wanted to replace the null values in the WHERE part of the query:</p>
+        <img src="assets/ss6.jpg" alt="Project Overview" class="sub-img" />
+        <p>Now that we have the correct output, next is to implement this query as the new column for property_address. I made a huge mistake by not aliasing the update-table the first time I did this, so the query ended up running on every row of data, returning duplicates of the first row. This was the newly corrected query:</p>
+        <img src="assets/ss7.jpg" alt="Project Overview" class="sub-img" />
+        <p>Now that the property_address column has no nulls, we can split the data using the split_part function. Since the property_address column had both the address and the city combined, separated by a comma, this function worked perfectly.</p>
+        <img src="assets/ss8.jpg" alt="Project Overview" class="sub-img" />
+        <p>The "sold_as_vacant" column had multiple items to signify "Yes" or "No". To simplify and make the column more uniformed, we can use the CASE WHEN statement which works like an "If conditional" in Python, to return "Yes" or "No" if the statement is True. (N to No, Y to Yes).</p>
+        <p>(To overview the sold_as_vacant column)</p>
+        <img src="assets/ss9.jpg" alt="Project Overview" class="sub-img" />
+        <p>(Updating the column)</p>
+        <img src="assets/ss10.jpg" alt="Project Overview" class="sub-img" />
+        <p>Next, there were some properties that were duplicated, but had different unique IDs. Because of this, by using a window function, we can capture the duplicated data by specifying row numbers greater than 1, and deleting those rows. Since deleting rows is a permanent action, wrapping this query with BEGIN and ROLLBACK will safeguard anything we do in case we delete more than those duplicated rows. Once everything is good to go, we can COMMIT the query.</p>
+        <img src="assets/ss11.jpg" alt="Project Overview" class="sub-img" />
+        <p>More of a note to myself:</p>
+        <p>Similar to the query we wrote to replace all of the nulls in the property_address column, it's very important to alias the table we are making changes to so that Postgres knows which table to update, and which table to read from.</p>
+        <p>Very last thing to finish cleaning this data is to delete the unnecessary columns that the split data is coming from.</p>
+        <img src="assets/ss12.jpg" alt="Project Overview" class="sub-img" />
       </ul>
     </div>
 
@@ -134,17 +154,20 @@
 
     <!-- Solution & Conclusion -->
     <div class="sub" id="sec-solution">
-      <img src="assets/pexels-kevin-ku-92347-577585.jpg" alt="Solution Diagram" class="sub-img" />
-      <h3 class="animate-color">Solution &amp; Conclusion</h3>
-      <p>In-depth explanation of how challenges were overcome, including architectural patterns, performance optimizations, and the final deliverable state that met project goals.</p>
+      <h3 class="animate-color">Conclusion & Extras</h3>
+      <p>Using PowerShell to organize workspaces and an ETL scripts directory, the walkthrough tracks ParcelID while Sublime Text commands are reproducible. Raw .xlsx files become .csv; psql runs import scripts for schema creation and runs the copy command. For speed, all columns start as text. Cleaning converts sale_date with to_date function, and changes type to date; property_address splits with split_part by comma; sold_as_vacant CASE WHEN standardizes Y/N. WHERE logic, an aliased UPDATE target, row_number() > 1 duplicate removal, and BEGIN/ROLLBACK/COMMIT safeguard changes.</p>
+      <p>Now that the data is cleaned and we've removed unnecessary columns, we can use it to make helpful charts and dashboards to gain beneficial insights.</p>
+      <p> </p>
+      <p> </p>
+      <p>(Total Value Year to Year growth)</p>
+      <img src="assets/ss13.jpg" alt="Solution Diagram" class="sub-img" />
+      <p>Sales from the top 4 cities, with Nashville having the clear majority:</p>
+      <img src="assets/ss14.jpg" alt="Solution Diagram" class="sub-img" />
+      <p>Sale Price of properties Year to Date, where we can clearly see that in 2015, the most amount of money was made from sales in Tennessee:</p>
+      <img src="assets/ss15.jpg" alt="Solution Diagram" class="sub-img" />
     </div>
 
     <div class="separator"></div>
-
-    <!-- Reflection -->
-    <div class="sub" id="sec-reflection">
-      <h3 class="animate-color">What I've Learned Throughout This Project</h3>
-      <p>Here, I reflect on the challenges faced, the key insights gained, and the skills I developed while building this project. Feel free to expand on specific technical or process-oriented lessons.</p>
     </div>
   </section>
 
