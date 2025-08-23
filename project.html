@@ -115,38 +115,38 @@
       <div class="separator"></div>
       <h3 class="animate-color">Step 1: Importing</h3>
       <ul>
-        <img src="assets/ss1.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss1.png" alt="Project Overview" class="sub-img" />
         <p>First thing I do is save the raw data file (.xlsx) as a .csv file so Postgres can read it easier for importing.</p>
         <p>Next I go into the terminal (Powershell on Windows), and create a directory so that everything is organized, and if I want to use ETL scripts, it will make it much easier to point to the location of the raw data.</p>
-        <img src="assets/ss2.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss2.png" alt="Project Overview" class="sub-img" />
         <p>Went into Sublime text to type out my import sql script so that I can use this file to have psql read and run the script later on. In this file, I will create the database if it doesn't exist already, create the schema, create the table, and lastly copy the table from the csv file location.</p>
-        <img src="assets/ss3.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss3.png" alt="Project Overview" class="sub-img" />
         <p>In the "create table", you'll notice I set all of the column types to be just "text". This is to ensure faster query execution, quicker importing. Only downside is you must cast columns to be different types in your queries.</p>
       </ul>
 
       <h3 class="animate-color">Step 2: Cleaning</h3>
       <ul>
-        <img src="assets/ss4.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss4.png" alt="Project Overview" class="sub-img" />
         <p>First column I made changes on was the sale_date column. Changed the date format to the standard YYYY-MM-DD format. To do this, I changed the column type to "date", and used the "to_date" function to change the format to be standard using the existing date format, which was like this (April 9, 2013), so I used AI to figure out what the date format syntax was for the query to work properly.</p>
-        <img src="assets/ss5.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss5.png" alt="Project Overview" class="sub-img" />
         <p>Before splitting any data, we must take care of the null values. For the null values in the property_address column, it wasn't a straight forward task due to the ParcelID of the null property_address values being the same as some non-null values. In this case, the target goal was to use the non-null values that shared the same ParcelID to replace the null values.</p>
         <p>To do this accurately, I made sure to be specific on how I wanted to replace the null values in the WHERE part of the query:</p>
-        <img src="assets/ss6.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss6.png" alt="Project Overview" class="sub-img" />
         <p>Now that we have the correct output, next is to implement this query as the new column for property_address. I made a huge mistake by not aliasing the update-table the first time I did this, so the query ended up running on every row of data, returning duplicates of the first row. This was the newly corrected query:</p>
-        <img src="assets/ss7.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss7.png" alt="Project Overview" class="sub-img" />
         <p>Now that the property_address column has no nulls, we can split the data using the split_part function. Since the property_address column had both the address and the city combined, separated by a comma, this function worked perfectly.</p>
-        <img src="assets/ss8.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss8.png" alt="Project Overview" class="sub-img" />
         <p>The "sold_as_vacant" column had multiple items to signify "Yes" or "No". To simplify and make the column more uniformed, we can use the CASE WHEN statement which works like an "If conditional" in Python, to return "Yes" or "No" if the statement is True. (N to No, Y to Yes).</p>
         <p>(To overview the sold_as_vacant column)</p>
-        <img src="assets/ss9.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss9.png" alt="Project Overview" class="sub-img" />
         <p>(Updating the column)</p>
-        <img src="assets/ss10.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss10.png" alt="Project Overview" class="sub-img" />
         <p>Next, there were some properties that were duplicated, but had different unique IDs. Because of this, by using a window function, we can capture the duplicated data by specifying row numbers greater than 1, and deleting those rows. Since deleting rows is a permanent action, wrapping this query with BEGIN and ROLLBACK will safeguard anything we do in case we delete more than those duplicated rows. Once everything is good to go, we can COMMIT the query.</p>
-        <img src="assets/ss11.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss11.png" alt="Project Overview" class="sub-img" />
         <p>More of a note to myself:</p>
         <p>Similar to the query we wrote to replace all of the nulls in the property_address column, it's very important to alias the table we are making changes to so that Postgres knows which table to update, and which table to read from.</p>
         <p>Very last thing to finish cleaning this data is to delete the unnecessary columns that the split data is coming from.</p>
-        <img src="assets/ss12.jpg" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss12.png" alt="Project Overview" class="sub-img" />
       </ul>
     </div>
 
@@ -160,11 +160,11 @@
       <p> </p>
       <p> </p>
       <p>(Total Value Year to Year growth)</p>
-      <img src="assets/ss13.jpg" alt="Solution Diagram" class="sub-img" />
+      <img src="assets/ss13.png" alt="Solution Diagram" class="sub-img" />
       <p>Sales from the top 4 cities, with Nashville having the clear majority:</p>
-      <img src="assets/ss14.jpg" alt="Solution Diagram" class="sub-img" />
+      <img src="assets/ss14.png" alt="Solution Diagram" class="sub-img" />
       <p>Sale Price of properties Year to Date, where we can clearly see that in 2015, the most amount of money was made from sales in Tennessee:</p>
-      <img src="assets/ss15.jpg" alt="Solution Diagram" class="sub-img" />
+      <img src="assets/ss15.png" alt="Solution Diagram" class="sub-img" />
     </div>
 
     <div class="separator"></div>
