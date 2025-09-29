@@ -3,96 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Isaac Lindsey</title>
+  <title>Isaac Lindsey — Project</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --bg: #111; --fg: #fff; --accent: #0af; }
+    :root { --bg: #111; --fg: #fff; --accent: #0af; --muted:#bbb; }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      height: 100%;
-      background: var(--bg);
-      color: var(--fg);
-      font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: rgba(17,17,17,0.85);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      z-index: 100;
-    }
+    html, body { height: 100%; background: var(--bg); color: var(--fg); font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+
+    header { position: fixed; top: 0; left: 0; width: 100%; background: rgba(17,17,17,0.85); display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; z-index: 100; }
     .logo { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
     nav a { color: var(--fg); margin-left: 1rem; text-decoration: none; font-weight: 600; }
 
-    section#project-detail {
-      padding: 140px 2rem 80px;
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-    }
-    h2 { font-size: 3rem; margin-bottom: 2.5rem; color: var(--accent); }
+    section#project-detail { padding: 140px 2rem 80px; max-width: 900px; margin: 0 auto; position: relative; }
+    h1 { font-size: 3rem; margin-bottom: .5rem; color: var(--accent); }
+    .subtitle { color: var(--muted); margin-bottom: 2rem; }
 
-    .sub {
-      margin-bottom: 6rem;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
+    .sub { margin-bottom: 6rem; opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .sub.visible { opacity: 1; transform: translateY(0); }
 
-    .sub h3 {
-      font-size: 2.5rem;
-      margin: 1.5rem 0;
-    }
+    .sub h3 { font-size: 2rem; margin: 1.25rem 0; }
     .animate-color { animation: colorShift 4s linear infinite; }
-    @keyframes colorShift { 
-      0%,100% { color: var(--accent); } 
-      50% { color: var(--fg); } 
-    }
+    @keyframes colorShift { 0%,100% { color: var(--accent); } 50% { color: var(--fg); } }
 
-    .sub p, .sub ul { font-size: 1.2rem; line-height: 1.8; margin-bottom: 1rem; }
+    .sub p, .sub ul { font-size: 1.05rem; line-height: 1.8; margin-bottom: 1rem; }
     .sub ul { padding-left: 1.5rem; list-style: disc; }
 
-    .sub-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      margin-bottom: 1rem;
-      border-radius: 0.75rem;
-      object-fit: cover;
-    }
+    .sub-img { width: 100%; height: auto; display: block; margin-bottom: 1rem; border-radius: 0.75rem; object-fit: cover; }
 
-    /* CSS-only section separator */
-    .separator {
-      width: 100%;
-      height: 4px;
-      margin: 3rem 0;
-      background: linear-gradient(90deg, var(--accent), var(--fg), var(--accent));
-      background-size: 200% 100%;
-      animation: sepShift 4s ease-in-out infinite;
-    }
-    @keyframes sepShift {
-      0%,100% { background-position: 0% 0%; }
-      50%     { background-position: 100% 0%; }
-    }
+    .separator { width: 100%; height: 4px; margin: 3rem 0; background: linear-gradient(90deg, var(--accent), var(--fg), var(--accent)); background-size: 200% 100%; animation: sepShift 4s ease-in-out infinite; }
+    @keyframes sepShift { 0%,100% { background-position: 0% 0%; } 50% { background-position: 100% 0%; } }
 
-    #detail-progress {
-      position: fixed;
-      right: 0;
-      top: 0;
-      width: 4px;
-      height: 0;
-      background: var(--accent);
-      z-index: 200;
-      transition: height 0.1s ease;
-    }
+    #detail-progress { position: fixed; right: 0; top: 0; width: 4px; height: 0; background: var(--accent); z-index: 200; transition: height 0.1s ease; }
+
+    /* tiny code block styling */
+    pre { background:#0a0a0a; border:1px solid #222; padding:1rem; border-radius:.6rem; overflow:auto; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:.95rem; }
+
+    /* back button */
+    .backbar { display:flex; gap:.75rem; align-items:center; margin-bottom:1.25rem; }
+    .backbar a { display:inline-flex; align-items:center; gap:.5rem; text-decoration:none; color:var(--fg); padding:.5rem .8rem; border:1px solid #333; border-radius:.6rem; }
+    .backbar a:hover { border-color:#555; }
   </style>
 </head>
 <body>
@@ -104,72 +54,162 @@
   <div id="detail-progress"></div>
 
   <section id="project-detail">
-    <h2>Tennessee Housing Data Cleaning / SQL Project</h2>
+    <!-- Content injected by JS based on ?proj=one|two -->
+    <div class="backbar"><a href="index.html#projects" aria-label="Back to projects">⬅ Back to Projects</a></div>
+    <div id="content"></div>
+  </section>
 
-    <!-- Overview -->
-    <div class="sub" id="sec-project">
+  <template id="tpl-one">
+    <h1>Housing Data Cleaning / SQL Project</h1>
+    <p class="subtitle">From messy data to highly usable and actionable insights.</p>
+
+    <div class="sub">
       <img src="assets/pexels-jakubzerdzicki-28550000.jpg" alt="Project Overview" class="sub-img" />
       <h3 class="animate-color">Project Overview</h3>
-      <p>This project is importing raw data into Postgres, where we clean the data to make it more usable.</p>
+      <p>Transformed a raw housing dataset into actionable insights. Imported data into PostgreSQL, cleaned and standardized it for accuracy, then connected it to Power Query. Built measures, pivot tables, and dashboards to highlight key housing trends and metrics. The result: a clear, reliable tool that helps stakeholders quickly spot patterns and make smarter, data-driven decisions.</p>
 
       <div class="separator"></div>
       <h3 class="animate-color">Step 1: Importing</h3>
       <ul>
-        <img src="assets/ss1.png" alt="Project Overview" class="sub-img" />
-        <p>First thing I do is save the raw data file (.xlsx) as a .csv file so Postgres can read it easier for importing.</p>
-        <p>Next I go into the terminal (Powershell on Windows), and create a directory so that everything is organized, and if I want to use ETL scripts, it will make it much easier to point to the location of the raw data.</p>
-        <img src="assets/ss2.png" alt="Project Overview" class="sub-img" />
-        <p>Went into Sublime text to type out my import sql script so that I can use this file to have psql read and run the script later on. In this file, I will create the database if it doesn't exist already, create the schema, create the table, and lastly copy the table from the csv file location.</p>
-        <img src="assets/ss3.png" alt="Project Overview" class="sub-img" />
-        <p>In the "create table", you'll notice I set all of the column types to be just "text". This is to ensure faster query execution, quicker importing. Only downside is you must cast columns to be different types in your queries.</p>
+        <img src="assets/ss1.png" alt="Import setup" class="sub-img" />
+        <p>Saved the raw .xlsx as .csv for faster ingest. Organized a project directory in PowerShell, then authored a reproducible SQL import script (DB + schema + table + COPY).</p>
+        <img src="assets/ss2.png" alt="SQL import script" class="sub-img" />
+        <p>All columns initially typed as <code>text</code> for speed and flexibility; cast to specific types later during cleaning.</p>
+        <img src="assets/ss3.png" alt="Create table as text" class="sub-img" />
       </ul>
 
       <h3 class="animate-color">Step 2: Cleaning</h3>
       <ul>
-        <img src="assets/ss4.png" alt="Project Overview" class="sub-img" />
-        <p>First column I made changes on was the sale_date column. Changed the date format to the standard YYYY-MM-DD format. To do this, I changed the column type to "date", and used the "to_date" function to change the format to be standard using the existing date format, which was like this (April 9, 2013), so I used AI to figure out what the date format syntax was for the query to work properly.</p>
-        <img src="assets/ss5.png" alt="Project Overview" class="sub-img" />
-        <p>Before splitting any data, we must take care of the null values. For the null values in the property_address column, it wasn't a straight forward task due to the ParcelID of the null property_address values being the same as some non-null values. In this case, the target goal was to use the non-null values that shared the same ParcelID to replace the null values.</p>
-        <p>To do this accurately, I made sure to be specific on how I wanted to replace the null values in the WHERE part of the query:</p>
-        <img src="assets/ss6.png" alt="Project Overview" class="sub-img" />
-        <p>Now that we have the correct output, next is to implement this query as the new column for property_address. I made a huge mistake by not aliasing the update-table the first time I did this, so the query ended up running on every row of data, returning duplicates of the first row. This was the newly corrected query:</p>
-        <img src="assets/ss7.png" alt="Project Overview" class="sub-img" />
-        <p>Now that the property_address column has no nulls, we can split the data using the split_part function. Since the property_address column had both the address and the city combined, separated by a comma, this function worked perfectly.</p>
-        <img src="assets/ss8.png" alt="Project Overview" class="sub-img" />
-        <p>The "sold_as_vacant" column had multiple items to signify "Yes" or "No". To simplify and make the column more uniformed, we can use the CASE WHEN statement which works like an "If conditional" in Python, to return "Yes" or "No" if the statement is True. (N to No, Y to Yes).</p>
-        <p>(To overview the sold_as_vacant column)</p>
-        <img src="assets/ss9.png" alt="Project Overview" class="sub-img" />
-        <p>(Updating the column)</p>
-        <img src="assets/ss10.png" alt="Project Overview" class="sub-img" />
-        <p>Next, there were some properties that were duplicated, but had different unique IDs. Because of this, by using a window function, we can capture the duplicated data by specifying row numbers greater than 1, and deleting those rows. Since deleting rows is a permanent action, wrapping this query with BEGIN and ROLLBACK will safeguard anything we do in case we delete more than those duplicated rows. Once everything is good to go, we can COMMIT the query.</p>
-        <img src="assets/ss11.png" alt="Project Overview" class="sub-img" />
-        <p>More of a note to myself:</p>
-        <p>Similar to the query we wrote to replace all of the nulls in the property_address column, it's very important to alias the table we are making changes to so that Postgres knows which table to update, and which table to read from.</p>
-        <p>Very last thing to finish cleaning this data is to delete the unnecessary columns that the split data is coming from.</p>
-        <img src="assets/ss12.png" alt="Project Overview" class="sub-img" />
+        <img src="assets/ss4.png" alt="Date cleaning" class="sub-img" />
+        <p>Standardized <code>sale_date</code> to <code>YYYY-MM-DD</code> via <code>to_date()</code> and set column type to <code>date</code>.</p>
+        <img src="assets/ss5.png" alt="Null handling strategy" class="sub-img" />
+        <p>Filled null <code>property_address</code> by matching on shared <code>ParcelID</code> across rows.</p>
+        <img src="assets/ss6.png" alt="Correct WHERE logic" class="sub-img" />
+        <p>Ensured precise <code>WHERE</code> logic and aliased the UPDATE target to avoid duplications.</p>
+        <img src="assets/ss7.png" alt="Aliased update" class="sub-img" />
+        <p>Split <code>property_address</code> into <code>address</code> and <code>city</code> using <code>split_part()</code>.</p>
+        <img src="assets/ss8.png" alt="Split address" class="sub-img" />
+        <p>Normalized <code>sold_as_vacant</code> with <code>CASE WHEN</code> (map Y/N variants → Yes/No).</p>
+        <img src="assets/ss9.png" alt="Vacant overview" class="sub-img" />
+        <img src="assets/ss10.png" alt="Vacant update" class="sub-img" />
+        <p>Identified duplicates using a window function and removed <code>row_number() &gt; 1</code> rows inside a <code>BEGIN</code>/<code>ROLLBACK</code>/<code>COMMIT</code> guard.</p>
+        <img src="assets/ss11.png" alt="Duplicate removal" class="sub-img" />
+        <p>Dropped staging columns after splitting to keep the table lean.</p>
+        <img src="assets/ss12.png" alt="Drop columns" class="sub-img" />
       </ul>
     </div>
 
     <div class="separator"></div>
 
-    <!-- Solution & Conclusion -->
-    <div class="sub" id="sec-solution">
+    <div class="sub">
       <h3 class="animate-color">Conclusion & Extras</h3>
-      <p>Using PowerShell to organize workspaces and an ETL scripts directory, the walkthrough tracks ParcelID while Sublime Text commands are reproducible. Raw .xlsx files become .csv; psql runs import scripts for schema creation and runs the copy command. For speed, all columns start as text. Cleaning converts sale_date with to_date function, and changes type to date; property_address splits with split_part by comma; sold_as_vacant CASE WHEN standardizes Y/N. WHERE logic, an aliased UPDATE target, row_number() > 1 duplicate removal, and BEGIN/ROLLBACK/COMMIT safeguard changes.</p>
-      <p>Now that the data is cleaned and we've removed unnecessary columns, we can use it to make helpful charts and dashboards to gain beneficial insights.</p>
-      <p> </p>
-      <p> </p>
+      <p>Organized ETL, standardized dates, filled critical nulls, normalized boolean-like fields, and enforced de-duplication—all reproducibly scripted. The polished dataset then powered Excel/Power BI visuals for swift decision-making.</p>
       <p>(Total Value Year to Year growth)</p>
-      <img src="assets/ss13.png" alt="Solution Diagram" class="sub-img" />
-      <p>Sales from the top 4 cities, with Nashville having the clear majority:</p>
-      <img src="assets/ss14.png" alt="Solution Diagram" class="sub-img" />
-      <p>Sale Price of properties Year to Date, where we can clearly see that in 2015, the most amount of money was made from sales in Tennessee:</p>
-      <img src="assets/ss15.png" alt="Solution Diagram" class="sub-img" />
+      <img src="assets/ss13.png" alt="YoY growth" class="sub-img" />
+      <p>Top cities by sales (Nashville leads):</p>
+      <img src="assets/ss14.png" alt="Top cities" class="sub-img" />
+      <p>Sale price YTD with 2015 peak highlighted:</p>
+      <img src="assets/ss15.png" alt="YTD sales" class="sub-img" />
+      <p>Acreage vs sales shows size ≠ price; notable 2016 Q2 outlier with lower average acreage:</p>
+      <img src="assets/ss16.png" alt="Acreage vs sales" class="sub-img" />
+      <p>Interactive dashboard examples:</p>
+      <img src="assets/ss17.png" alt="Dashboard 1" class="sub-img" />
+      <img src="assets/ss18.png" alt="Dashboard 2" class="sub-img" />
+    </div>
+  </template>
+
+  <template id="tpl-two">
+    <h1>SQL Case Study — Solving a Data Breach</h1>
+    <p class="subtitle">Cross‑database queries, joins, views, and window functions for investigative analytics.</p>
+
+    <div class="sub">
+      <img src="thumbnail1.png" alt="SQL Case Study cover" class="sub-img" />
+      <h3 class="animate-color">Project Overview</h3>
+      <p>This case study mirrors a real investigative workflow: two PostgreSQL databases were restored—<strong>Movr_Employees</strong> (HR records) and <strong>Movr</strong> (rideshare product). The goal: trace patterns linking internal employees to suspicious rider activity and uncover the insider responsible for the breach.</p>
+
+      <div class="separator"></div>
+      <h3 class="animate-color">Objectives</h3>
+      <ul>
+        <li>Model relationships between employees and riders across separate schemas/databases.</li>
+        <li>Design robust queries for entity linkage (phones, addresses, payment artifacts, temporal overlap).</li>
+        <li>Package repeatable logic into <code>VIEWS</code> for clarity and reuse.</li>
+        <li>Surface ranked suspects with window functions and targeted filters.</li>
+      </ul>
+
+      <h3 class="animate-color">Data Sources</h3>
+      <ul>
+        <li><strong>Movr_Employees</strong>: employee_id, name, contact info, departments, access logs.</li>
+        <li><strong>Movr</strong>: riders, trips, devices, payments, geo/timestamps.</li>
+      </ul>
+    </div>
+
+    <div class="sub">
+      <h3 class="animate-color">Core Techniques</h3>
+      <ul>
+        <li>Inner/left joins across harmonized keys and standardized formats.</li>
+        <li>Link analysis using <code>LOWER(TRIM())</code>, tokenized phone/email variants, and address normalization.</li>
+        <li>Window functions (<code>ROW_NUMBER</code>, <code>DENSE_RANK</code>) to rank suspect link strength.</li>
+        <li>Common Table Expressions (CTEs) to stage intermediate evidence sets.</li>
+        <li>Views to freeze business logic for repeatable review.</li>
+      </ul>
+
+      <pre><code>-- Example: normalize and connect employee phones to rider phones
+WITH emp AS (
+  SELECT employee_id, LOWER(REGEXP_REPLACE(phone, '[^0-9]', '', 'g')) AS phone_norm
+  FROM movr_employees.employees
+), rid AS (
+  SELECT rider_id, LOWER(REGEXP_REPLACE(phone, '[^0-9]', '', 'g')) AS phone_norm
+  FROM movr.public.riders
+)
+SELECT e.employee_id, r.rider_id
+FROM emp e
+JOIN rid r USING (phone_norm);
+</code></pre>
+
+      <pre><code>-- Example: score and rank suspects by multiple linkage signals
+WITH email_link AS (
+  SELECT e.employee_id, r.rider_id, 1 AS score FROM ...
+), device_link AS (
+  SELECT e.employee_id, r.rider_id, 2 AS score FROM ...
+), unioned AS (
+  SELECT * FROM email_link
+  UNION ALL SELECT * FROM device_link
+)
+SELECT employee_id,
+       SUM(score) AS total_score,
+       DENSE_RANK() OVER (ORDER BY SUM(score) DESC) AS suspicion_rank
+FROM unioned
+GROUP BY employee_id
+ORDER BY total_score DESC;
+</code></pre>
+    </div>
+
+    <div class="sub">
+      <h3 class="animate-color">Findings</h3>
+      <ul>
+        <li>Converged on a shortlist of <strong>11 employees</strong> with non‑trivial link signals to outside rider accounts.</li>
+        <li>Subsequent review pointed to <strong>Parke Morris</strong> as the primary insider, confirmed via corroborating evidence.</li>
+      </ul>
+      <img src="assets/databreach_links.png" alt="Link chart (placeholder)" class="sub-img" />
+    </div>
+
+    <div class="sub">
+      <h3 class="animate-color">Deliverables</h3>
+      <ul>
+        <li>SQL views encapsulating linkage logic (<code>vw_phone_link</code>, <code>vw_email_link</code>, <code>vw_device_link</code>).</li>
+        <li>Ranked suspect report (exported CSV/Excel) for stakeholders.</li>
+        <li>Executive summary with visual excerpts explaining evidence chain.</li>
+      </ul>
+      <img src="assets/databreach_dashboard.png" alt="Investigation dashboard (placeholder)" class="sub-img" />
     </div>
 
     <div class="separator"></div>
+
+    <div class="sub">
+      <h3 class="animate-color">Conclusion</h3>
+      <p>The case demonstrates an end‑to‑end approach to investigative analytics: careful normalization, cross‑database joins, staged CTEs, and ranking logic to surface the most probable insider. Packaging the work into views provides a clean, auditable trail for peer review and reproducibility.</p>
     </div>
-  </section>
+  </template>
 
   <script>
     // Scroll progress indicator
@@ -181,16 +221,28 @@
     });
 
     // Reveal sections on scroll
-    const subs = document.querySelectorAll('.sub');
-    const revealObs = new IntersectionObserver((entries, obs) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.2 });
-    subs.forEach(sec => revealObs.observe(sec));
+    const reveal = () => {
+      const subs = document.querySelectorAll('.sub');
+      const obs = new IntersectionObserver((entries, o) => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); o.unobserve(entry.target); } });
+      }, { threshold: 0.2 });
+      subs.forEach(sec => obs.observe(sec));
+    };
+
+    // Router: pick content based on ?proj=one|two
+    const mount = () => {
+      const params = new URLSearchParams(location.search);
+      const which = (params.get('proj') || 'one').toLowerCase();
+      const map = { one: '#tpl-one', two: '#tpl-two' };
+      const tpl = document.querySelector(map[which] || '#tpl-one');
+      const node = tpl.content.cloneNode(true);
+      const target = document.getElementById('content');
+      target.innerHTML = '';
+      target.appendChild(node);
+      reveal();
+    };
+
+    document.addEventListener('DOMContentLoaded', mount);
   </script>
 </body>
 </html>
