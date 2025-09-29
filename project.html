@@ -120,94 +120,67 @@
 
   <template id="tpl-two">
     <h1>SQL Case Study — Solving a Data Breach</h1>
-    <p class="subtitle">Cross‑database queries, joins, views, and window functions for investigative analytics.</p>
 
     <div class="sub">
       <img src="thumbnail1.png" alt="SQL Case Study cover" class="sub-img" />
       <h3 class="animate-color">Project Overview</h3>
-      <p>This case study mirrors a real investigative workflow: two PostgreSQL databases were restored—<strong>Movr_Employees</strong> (HR records) and <strong>Movr</strong> (rideshare product). The goal: trace patterns linking internal employees to suspicious rider activity and uncover the insider responsible for the breach.</p>
+      <p>In this SQL case study, I investigated a simulated data breach using two restored databases: <strong>Movr_Employees</strong> and <strong>Movr</strong>, a ride-sharing product. Through joins, views, and cross-database queries, I traced user actions, matched locations, and pieced together clues. The breach was solved by identifying who caused it, why it happened, and who was involved—showcasing SQL expertise, attention to detail, and the ability to find answers hidden in data.</p>
 
       <div class="separator"></div>
-      <h3 class="animate-color">Objectives</h3>
+      <h3 class="animate-color">First 2 Clues:</h3>
       <ul>
-        <li>Model relationships between employees and riders across separate schemas/databases.</li>
-        <li>Design robust queries for entity linkage (phones, addresses, payment artifacts, temporal overlap).</li>
-        <li>Package repeatable logic into <code>VIEWS</code> for clarity and reuse.</li>
-        <li>Surface ranked suspects with window functions and targeted filters.</li>
+        <li>The data breach was an inside job</li>
+        <li>It was done on 2020-06-23</li>
+        <img src="assets/2ss1.png" alt="first query" class="sub-img" />
+        <p>We are dealing with a good size data set for this case, so I indexed the foreign key columns and others that will speed up query run-times</p>
+        <p>The company's employees and their families travel for free with the Movr platform, and since the company is located in the heart of Downtown New York, it's assumed they may have used the platform to get around.</p>
+        <p>With what we know now, we should be able to deduce some information from the Movr database. Let's try to figure out what vehicles were at the location of the company...</p>
+        <img src="assets/2ss2.png" alt="second query" class="sub-img" />
+        <p>with some extra info having the longitude and latitude of the company's location, and the day, we've narrowed the pool of rides to 428.</p>
+        <img src="assets/2ss3.png" alt="third query" class="sub-img" />
+        <p>With this query, we can see that there were 89 vehicles driven for those 428 rides, which means 89 different drivers!</p>
+        <img src="assets/2ss4.png" alt="fourth query" class="sub-img" />
+        <p>joining across different tables, we get names, addresses, and even current location to these 89 drivers.</p>
       </ul>
-
-      <h3 class="animate-color">Data Sources</h3>
-      <ul>
-        <li><strong>Movr_Employees</strong>: employee_id, name, contact info, departments, access logs.</li>
-        <li><strong>Movr</strong>: riders, trips, devices, payments, geo/timestamps.</li>
-      </ul>
-    </div>
 
     <div class="sub">
-      <h3 class="animate-color">Core Techniques</h3>
+      <h3 class="animate-color">The 3rd Clue:</h3>
       <ul>
-        <li>Inner/left joins across harmonized keys and standardized formats.</li>
-        <li>Link analysis using <code>LOWER(TRIM())</code>, tokenized phone/email variants, and address normalization.</li>
-        <li>Window functions (<code>ROW_NUMBER</code>, <code>DENSE_RANK</code>) to rank suspect link strength.</li>
-        <li>Common Table Expressions (CTEs) to stage intermediate evidence sets.</li>
-        <li>Views to freeze business logic for repeatable review.</li>
+        <p>After interrogating the 89 drivers, it became inconclusive. None of the drivers seemed sus, and there was nothing to uncover.</p>
+        <p>After the unfortunate dead end, we get another clue that helps with the case: It's not the drivers, it's most likely the riders, which makes more sense.</p>
+        <img src="assets/2ss5.png" alt="fifth query" class="sub-img" />
+        <p>With this query now focusing on the riders instead, we get 109 riders and their names and addresses.</p>
       </ul>
-
-      <pre><code>-- Example: normalize and connect employee phones to rider phones
-WITH emp AS (
-  SELECT employee_id, LOWER(REGEXP_REPLACE(phone, '[^0-9]', '', 'g')) AS phone_norm
-  FROM movr_employees.employees
-), rid AS (
-  SELECT rider_id, LOWER(REGEXP_REPLACE(phone, '[^0-9]', '', 'g')) AS phone_norm
-  FROM movr.public.riders
-)
-SELECT e.employee_id, r.rider_id
-FROM emp e
-JOIN rid r USING (phone_norm);
-</code></pre>
-
-      <pre><code>-- Example: score and rank suspects by multiple linkage signals
-WITH email_link AS (
-  SELECT e.employee_id, r.rider_id, 1 AS score FROM ...
-), device_link AS (
-  SELECT e.employee_id, r.rider_id, 2 AS score FROM ...
-), unioned AS (
-  SELECT * FROM email_link
-  UNION ALL SELECT * FROM device_link
-)
-SELECT employee_id,
-       SUM(score) AS total_score,
-       DENSE_RANK() OVER (ORDER BY SUM(score) DESC) AS suspicion_rank
-FROM unioned
-GROUP BY employee_id
-ORDER BY total_score DESC;
-</code></pre>
-    </div>
 
     <div class="sub">
-      <h3 class="animate-color">Findings</h3>
+      <h3 class="animate-color">The 4th Clue:</h3>
       <ul>
-        <li>Converged on a shortlist of <strong>11 employees</strong> with non‑trivial link signals to outside rider accounts.</li>
-        <li>Subsequent review pointed to <strong>Parke Morris</strong> as the primary insider, confirmed via corroborating evidence.</li>
+        <p>Once again, after interrogating these 109 riders, nothing was conclusive.</p>
+        <p>But wait, this data breach was an inside job. These are all people using the Movr platform, not necessarily employees of the company. Though it is confirmed this breach was a collaboration between 2 people, one on the inside, and one on the outside. To make any more progress, we need to make use of the second database which has tables on the employees of the company, and see if there are any connections to these drivers or riders with the employees.</p>
+        <img src="assets/2ss6.png" alt="sixth query" class="sub-img" />
+        <p>the "name" column combined the first and last name into one column, so we needed to split them in order to join to the employees</p>
+        <img src="assets/2ss7.png" alt="seventh query" class="sub-img" />
+        <p>this query will expose the connections these riders have to the employees by last names, the results:</p>
+        <img src="assets/2ss8.png" alt="eighth query" class="sub-img" />
+        <p>We now get 11 new possible suspects for the person who was on the inside</p>
       </ul>
-      <img src="assets/databreach_links.png" alt="Link chart (placeholder)" class="sub-img" />
-    </div>
+
 
     <div class="sub">
-      <h3 class="animate-color">Deliverables</h3>
+      <h3 class="animate-color">Case Cracked</h3>
       <ul>
-        <li>SQL views encapsulating linkage logic (<code>vw_phone_link</code>, <code>vw_email_link</code>, <code>vw_device_link</code>).</li>
-        <li>Ranked suspect report (exported CSV/Excel) for stakeholders.</li>
-        <li>Executive summary with visual excerpts explaining evidence chain.</li>
+        <p>After interrogating these 11 individuals, Parke Morris confessed he was guilty, and the one on the inside who caused the data breach.</p>
+        <p>His motive was that he had been working for the company since 1989, pouring his heart and soul into the company and helped build it. But the CEO stopped promoting Parke Morris, so he felt like he wasn't getting the recognition he deserved, causing him to make copies of the company's database and share it with a family member.</p>
+        <p>Thankfully we caught him before he decided to sell the copies of the database, and Mr. Morris returned them to the company.</p>
       </ul>
-      <img src="assets/databreach_dashboard.png" alt="Investigation dashboard (placeholder)" class="sub-img" />
     </div>
 
     <div class="separator"></div>
 
     <div class="sub">
       <h3 class="animate-color">Conclusion</h3>
-      <p>The case demonstrates an end‑to‑end approach to investigative analytics: careful normalization, cross‑database joins, staged CTEs, and ranking logic to surface the most probable insider. Packaging the work into views provides a clean, auditable trail for peer review and reproducibility.</p>
+      <p>By restoring and analyzing the Movr and Movr_Employees databases, I followed a trail of clues using advanced SQL techniques—joins, views, and cross-database analysis. The investigation narrowed the suspects to 11 employees with potential ties to riders outside the company. After connecting actions, locations, and last names across the datasets, the case concluded with a confession from Parke Morris as the insider responsible for the breach.</p>
+      <p>This project demonstrates not only technical SQL expertise but also the ability to think critically, connect complex data points, and uncover clear answers from raw information—skills that translate directly into solving real business challenges such as fraud detection, anomaly tracking, and operational analysis.</p>
     </div>
   </template>
 
